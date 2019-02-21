@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+    <link rel="shortcut icon" href="http://www.luwisomo.org/wp-content/uploads/2016/07/register-icon-blue1.png"
+        type="image/png">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
+        integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="top-bar bg-info" style="height: 70px;width: 100%;">
+            <div class="container">
+                <h1 class="font-weight-bold text-light m-2">SALAM</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row" style="height: 600px">
+                <div class="register" class="float-left mt-1 bg-light" style="padding:2rem; margin-top:3rem;width:50%;">
+                    <form method="post" onsubmit="getInfo(event)">
+                        <div class="form-group">
+                            <label for="fullname">Name &amp; Surname:</label>
+                            <input type="text" id="fullname" class="form-control" pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                placeholder="Name Surname">
+                            <span class="text-danger" id="fullname_error"></span>
+                            <span class="text-success" id="fullname_valid"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="text" id="email" class="form-control" pattern="(?=.*[a-z])(?=.*[@])(?=.*[.])"
+                                title="Must contain lowercase letters, at symbol and a dot."
+                                placeholder="you@domain.com">
+                            <span class="text-danger" id="email_error"></span>
+                            <span class="text-success" id="email_valid"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNum">Phone number:</label>
+                            <input type="tel" id="phoneNum" class="form-control" pattern="[0-9]{3}-[0-9]{5}-[0-9]{4}"
+                                title="Must be Azerbaijan mobile operator number." placeholder="+994-55217-1845">
+                            <span class="text-danger" id="phoneNum_error"></span>
+                            <span class="text-success" id="phoneNum_valid"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="r_username">Username:</label>
+                            <input type="text" id="r_username" class="form-control" pattern="(?=.*[a-z])(?=.*[_]).{8,}"
+                                title="Must be longer than 7 characters." placeholder="user_name">
+                            <span class="text-danger" id="r_username_error"></span>
+                            <span class="text-success" id="r_username_valid"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="r_password">Password:</label>
+                            <input type="password" id="r_password" class="form-control"
+                                pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[_]).{8,}"
+                                title="Must have at least 8 characters, and contain at least one Upper character."
+                                placeholder="********">
+                            <span class="text-danger" id="r_password_error"></span>
+                            <span class="text-success" id="r_password_valid"></span>
+                        </div>
+                        <button type="submit" id="btn_register" class="btn btn-info btn-block text-uppercase"
+                            style="margin-top: 2rem;">Register</button>
+                    </form>
+                </div>
+                <div class="login" class="float-left mt-1 bg-light" style="padding:2rem; margin-top:3rem;width:50%;">
+                    <form method="post" onsubmit="getInfo(event)">
+                        <div class="form-group">
+                            <label for="u_username">Username:</label>
+                            <input type="text" id="u_username" class="form-control">
+                            <span class="text-danger" id="u_username_error"></span>
+                            <span class="text-success" id="u_username_valid"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="u_password">Password:</label>
+                            <input type="text" id="u_password" class="form-control">
+                            <span class="text-danger" id="u_password_error"></span>
+                            <span class="text-success" id="u_password_valid"></span>
+                        </div>
+                        <button type="submit" id="btn_login" class="btn btn-info btn-block text-uppercase"
+                            style="margin-top: 2rem;">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <footer class="bg-info text-light text-center p-3 salam" style="width:100%; height:100px;">
+            <div class="container">
+                <h3>owned by Aykhan Huseyn</h3>
+                <h3>&copy; 2019</h3>
+            </div>
+        </footer>
+    </div>
+    <div class="clearfix"></div>
+
+
+
+    <script src="main.js"></script>
+    <script src="dom.js"></script>
+    <script src="validator.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            event.preventDefault()
+
+            let dom = new DOM ();
+            let validator = new validator();
+
+
+            function getInfo(event) {
+                event.preventDefault();
+                checkName(fullname);
+                checkEmail(email);
+                checkNumber(phoneNumber);
+                checkUsername(r_username);
+            }
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
